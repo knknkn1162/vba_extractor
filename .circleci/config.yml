@@ -28,8 +28,3 @@ workflows:
             - build:
                 context:
                     - dockerhub
-            - test:
-                requires:
-                    - build
-                context:
-                    - dockerhub

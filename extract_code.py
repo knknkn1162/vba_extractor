@@ -29,7 +29,7 @@ def main():
     vba_parser = VBA_Parser(args.src)
     for (_, _, vba_filename, vba_code) in vba_parser.extract_macros():
         vba_file = dst_path.joinpath(vba_filename + '.vba')
-        print('output: {file}'.format(file=vba_file))
+        print('extract: {file}'.format(file=vba_file.resolve()))
         vba_file.write_text(filter_vba(vba_code))
 
 if __name__ == '__main__':
