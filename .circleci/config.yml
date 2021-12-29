@@ -4,7 +4,7 @@ version: 2.1
 parameters:
     vba_image:
         type: string
-        default: knknkn1162/olevba
+        default: knknkn1162/vba_extractor
 
 jobs:
     build:
