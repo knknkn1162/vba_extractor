@@ -36,7 +36,7 @@ jobs:
                 name: test mac_ja.xlsm extracting (including japanese word)
                 command: |
                     /app/extract_code.py ./test/mac_ja.xlsm
-                    ./test/mac_ja/Module1.bas | diff - ./test/mac_ja.txt
+                    cat ./test/mac_ja/Module1.bas | diff - ./test/mac_ja.txt
 workflows:
     build:
         jobs:
