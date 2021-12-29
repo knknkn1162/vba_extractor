@@ -1,1 +1,1 @@
-oletools
+oletools @ https://github.com/knknkn1162/oletools/archive/refs/heads/v0.60_ja.zip
