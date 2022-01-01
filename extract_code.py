@@ -14,6 +14,7 @@ def get_args():
         help='Destination directory path to output vba source files [default: ./vba_src].')
     return parser.parse_args()
 
+DEFAULT_EXTENSION=".bas"
 def main():
     args = get_args()
     src_path = Path(args.src)
@@ -28,7 +29,9 @@ def main():
 
     vba_parser = VBA_Parser(args.src)
     for (_, _, vba_filename, vba_code) in vba_parser.extract_macros():
-        vba_file = dst_path.joinpath(vba_filename + '.bas')
+        vba_file = dst_path.joinpath(vba_filename)
+        if vba_file.suffix == "":
+            vba_file = vba_file.parent / (vba_file.stem + DEFAULT_EXTENSION)
         print('extract: {file}'.format(file=vba_file.resolve()))
         vba_file.write_text(filter_vba(vba_code))
 
