@@ -6,6 +6,8 @@ from argparse import ArgumentParser
 from pathlib import Path
 from oletools.olevba import VBA_Parser, filter_vba
 
+DEFAULT_EXTENSION='./bas'
+VBA_PREFIX_CODE='Option Explicit'
 
 def get_args():
     parser = ArgumentParser(description='Extract vba source files from an MS Office file with macro.')
@@ -14,7 +16,14 @@ def get_args():
         help='Destination directory path to output vba source files [default: ./vba_src].')
     return parser.parse_args()
 
-DEFAULT_EXTENSION=".bas"
+def check_regular_code(code):
+    code = code.strip()
+    if code == '':
+        return False
+    if code == VBA_PREFIX_CODE:
+        return False
+    return True
+
 def main():
     args = get_args()
     src_path = Path(args.src)
@@ -29,11 +38,13 @@ def main():
 
     vba_parser = VBA_Parser(args.src)
     for (_, _, vba_filename, vba_code) in vba_parser.extract_macros():
-        vba_file = dst_path.joinpath(vba_filename)
-        if vba_file.suffix == "":
-            vba_file = vba_file.parent / (vba_file.stem + DEFAULT_EXTENSION)
-        print('extract: {file}'.format(file=vba_file.resolve()))
-        vba_file.write_text(filter_vba(vba_code))
+        vba_file = dst_path.joinpath(vba_filename + DEFAULT_EXTENSION)
+        code = filter_vba(vba_code)
+        if not check_regular_code(code):
+            print('skip: {file}'.format(file=vba_file))
+        else:
+            print('extract: {file}'.format(file=vba_file.resolve()))
+            vba_file.write_text(code)
 
 if __name__ == '__main__':
     main()
