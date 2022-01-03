@@ -3,4 +3,3 @@ Option Explicit
 Sub main()
     MsgBox " こんにちは"
 End Sub
-
