@@ -6,7 +6,7 @@ from argparse import ArgumentParser
 from pathlib import Path
 from oletools.olevba import VBA_Parser, filter_vba
 
-DEFAULT_EXTENSION='./bas'
+DEFAULT_EXTENSION='.bas'
 VBA_PREFIX_CODE='Option Explicit'
 
 def get_args():
