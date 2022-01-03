@@ -44,7 +44,7 @@ def main():
             print('skip: {file}'.format(file=vba_file))
         else:
             print('extract: {file}'.format(file=vba_file.resolve()))
-            vba_file.write_text(code)
+            vba_file.write_text(code + '\n')
 
 if __name__ == '__main__':
     main()
